@@ -1,0 +1,25 @@
+--- # AWS playbook
+- hosts: localhost
+  become: yes
+  become_user: ansibleadmin
+  connection: local
+  gather_facts: no
+  tasks:
+  - name: Install python-boto library  # prerequisite 
+    pip: name=boto
+  - name: Create AWS Instances
+    ec2:
+     key_name: "wezva"
+     instance_type: "t2.micro"
+     image: "ami-c58c1dd3"
+     wait: true
+     region: "us-east-1"
+    tags:
+      - ec2
+  - name: Create S3 bucket
+    s3_bucket:
+     name: mys3bucketwezva
+     region: "us-east-1"
+     state: present
+    tags:
+      - s3

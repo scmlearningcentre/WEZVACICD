@@ -1,0 +1,13 @@
+--- # SetUp playbook
+- hosts: all      
+  user: ansibleadmin
+  sudo: yes              
+  connection: ssh
+  gather_facts: yes
+  tasks:
+    - name: Install JDK 1.8
+      action: yum name=java-1.8.0-openjdk-devel state=installed
+    - name: Install HTTPD server on centos 7
+      action: yum name=httpd state=installed
+    - name: Start Apache
+      action: service name=httpd state=started
