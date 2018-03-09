@@ -18,3 +18,4 @@ IV) Build your own Image
      $ docker run --name myjboss -d -p 9990:9990 -p 8080:8080 myprod
        (Access war using http://<hostmachine>:8080/samplewar/)
 V) Setup CI using Jenkins
+VI) Upload artifacts to AWS S3
