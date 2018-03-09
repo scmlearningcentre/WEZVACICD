@@ -5,6 +5,8 @@
   connection: ssh
   gather_facts: yes
   tasks:
+    - name: Install Git
+      action: yum name=git state=installed
     - name: Install JDK 1.8
       action: yum name=java-1.8.0-openjdk-devel state=installed
     - name: Install HTTPD server on centos 7
