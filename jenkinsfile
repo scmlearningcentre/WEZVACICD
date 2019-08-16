@@ -1,7 +1,8 @@
 pipeline {
  agent { label 'test' }
 
- stages {
+ stages
+ {
   stage('Checkout')
   {
    steps { 
@@ -17,26 +18,21 @@ pipeline {
   }
  
   stage('Upload Artifactory') 
-  {
-          
-   steps {
-              
+  {          
+   steps {          
     script { 
-
+	    /* Define the Artifactory Server details */
         def server = Artifactory.server 'myartifactory'
         def uploadSpec = """{
             "files": [{
-
-            "pattern": "target/samplewar.war",
-            "target": "demo"
-
+            "pattern": "target/samplewar.war", 
+            "target": "demo"                   
             }]
         }"""
-
-
+        
+        /* Upload the war to  Artifactory repo */
         server.upload(uploadSpec)
     }
-
    }
   }
 
@@ -58,12 +54,10 @@ pipeline {
  stage('SonarQube Analysis') {
     steps{
      withSonarQubeEnv('mysonarqube') {
-      sh 'mvn clean package sonar:sonar'
+      sh 'mvn sonar:sonar'
      } 
     }
   }
- }
     
  }
 }
-
