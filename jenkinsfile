@@ -60,4 +60,13 @@ pipeline {
   }
     
  }
+ post 
+ {
+  success {
+    echo 'JENKINS PIPELINE SUCCESSFUL'
+  }
+  failure {
+    mail body: 'Pipeline Details', subject: 'The Pipeline failed', to: 'scmlearningcentre@gmail.com'
+  }
+ }
 }
