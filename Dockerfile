@@ -1,4 +1,4 @@
-MAINTAINER ADAM M
+MAINTAINER ADAM mailme@wezva.com
 FROM jboss/wildfly
 ADD target/samplewar.war /opt/jboss/wildfly/standalone/deployments/
 RUN /opt/jboss/wildfly/bin/add-user.sh admin admin --silent
