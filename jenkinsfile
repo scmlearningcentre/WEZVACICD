@@ -1,8 +1,9 @@
 pipeline {
- agent { label 'test' }
+ agent none
 
  stages
  {
+  agent { label 'deploy' }
   stage('Checkout')
   {
    steps { 
@@ -12,6 +13,7 @@ pipeline {
 
   stage('Build War')
   {
+   agent { label 'deploy' }
    steps { 
     sh "mvn clean package"
    }
@@ -19,6 +21,7 @@ pipeline {
  
   stage('Upload Artifactory') 
   {          
+   agent { label 'deploy' }
    steps {          
     script { 
 	    /* Define the Artifactory Server details */
@@ -38,6 +41,7 @@ pipeline {
 
  stage('Build Image') 
   {
+    agent { label 'deploy' }
     steps{
       script {
           docker.withRegistry( 'https://registry.hub.docker.com', 'dockerhub' ) {
@@ -51,11 +55,21 @@ pipeline {
     }
   }
 
- stage('SonarQube Analysis') {
+ stage('SonarQube Analysis') 
+ {
+    agent { label 'deploy' }
     steps{
      withSonarQubeEnv('mysonarqube') {
       sh 'mvn sonar:sonar'
      } 
+    }
+  }
+
+ stage('Deployment K8S')
+  {
+    agent { label 'deploy' }
+    steps {
+      sh "kubectl get nodes"
     }
   }
     
