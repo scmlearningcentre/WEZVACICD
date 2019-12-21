@@ -55,6 +55,15 @@ pipeline {
     }
   }
 
+ stage('Run Sanity')
+ {
+  agent { label 'deploy' }
+  steps {
+    sh "./runsanity.sh testimg"
+  }
+
+ }
+ 
  stage('SonarQube Analysis') 
  {
     agent { label 'deploy' }
