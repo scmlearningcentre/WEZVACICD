@@ -7,7 +7,7 @@ pipeline {
   stage('Checkout')
   {
    steps { 
-    git branch: 'master', url: 'https://github.com/scmlearningcentre/seminar.git'
+    git branch: 'master', url: 'https://github.com/mandlakeerthi/pipeline.git'
    }
   }
 
@@ -73,14 +73,6 @@ pipeline {
      } 
     }
   }
-
- stage('Deployment K8S')
-  {
-    agent { label 'deploy' }
-    steps {
-      sh "kubectl get nodes"
-    }
-  }
     
  }
  post 
@@ -89,7 +81,7 @@ pipeline {
     echo 'JENKINS PIPELINE SUCCESSFUL'
   }
   failure {
-    mail body: 'Pipeline Details', subject: 'The Pipeline failed', to: 'scmlearningcentre@gmail.com'
+    mail body: 'Pipeline Details', subject: 'The Pipeline failed', to: 'keerthimandla2020@gmail.com'
   }
  }
 }
